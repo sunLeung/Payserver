@@ -7,6 +7,7 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.PropertyConfigurator;
 
+import common.config.AppContent;
 import common.config.Config;
 import common.config.UnionsContent;
 import common.db.C3P0Utils;
@@ -38,6 +39,8 @@ public class InitListener implements ServletContextListener{
 		RouteController.parsePaths();
 		//初始化渠道配置
 		UnionsContent.init();
+		//初始化应用配置
+		AppContent.init();
 	}
 	
 	private void initConfig(ServletContextEvent sce){
