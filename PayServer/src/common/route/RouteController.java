@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import service.Service;
 import utils.AnnoUtils;
 
@@ -23,6 +26,8 @@ import common.anno.Path;
  * @version V1.0
  */
 public class RouteController extends HttpServlet{
+	private static Log log=LogFactory.getLog(RouteController.class);
+	
 	public static Map<String, Service> Paths = new ConcurrentHashMap<String, Service>();
 
 	/**
@@ -43,6 +48,7 @@ public class RouteController extends HttpServlet{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error(e.toString());
 		}
 	}
 	
@@ -53,15 +59,29 @@ public class RouteController extends HttpServlet{
 	 * @param is
 	 */
 	public static void handlePath(HttpServletRequest req,HttpServletResponse resp) {
-		String uri = req.getRequestURI();
-		String key="";
-		//是否请求支付服务器
-		if(uri.contains("/callpay/")){
-			key=uri.substring(uri.lastIndexOf("/"), uri.length());
-			Service service=Paths.get(key);
-			if(service!=null){
-				Service clone=service.clone();
-				clone.handle(req,resp);
+		try {
+			req.setCharacterEncoding("utf-8");
+			resp.setHeader("content-type", "text/html;charset=UTF-8");
+			String uri = req.getRequestURI();
+			String key="";
+			//是否请求支付服务器
+			if(uri.contains("/callpay/")){
+				String[] date=uri.split("/");
+				String union=date[2];
+				String appid=date[3];
+				Service service=Paths.get(union);
+				if(service!=null){
+					Service clone=service.clone();
+					clone.handle(appid,req,resp);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.toString());
+			try {
+				resp.getWriter().write("Wrong uri request.");
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 		}
 	}
