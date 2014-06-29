@@ -8,7 +8,7 @@ package common.config;
  * @version V1.0
  */
 public class Config {
-//	public static String CONFIG_DIR="config";
-	public static String CONFIG_DIR="C:\\Users\\l\\git\\Payserver\\PayServer\\WebRoot\\WEB-INF\\config";
+	public static String CONFIG_DIR="config";
+//	public static String CONFIG_DIR="D:\\Git\\Payserver\\PayServer\\WebRoot\\WEB-INF\\config";
 	
 }

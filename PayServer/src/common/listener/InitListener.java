@@ -24,8 +24,10 @@ public class InitListener implements ServletContextListener{
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
+		//清理c3p0
 		C3P0Utils.destroy();
+		//回写应用数据
+		AppContent.flush();
 	}
 
 	@Override

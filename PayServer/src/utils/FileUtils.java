@@ -1,8 +1,11 @@
 package utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class FileUtils {
 	private static String defaultCharset="utf-8";
@@ -33,5 +36,29 @@ public class FileUtils {
 			}
 		}
 		return sb.toString();
+	}
+	
+	public static void writeStringToFile(String path,String content){
+		writeStringToFile(path, content, defaultCharset);
+	}
+	
+	
+	public static void writeStringToFile(String path,String content,String charset){
+		FileOutputStream fos=null;
+		BufferedWriter bw=null;
+		try {
+			fos=new FileOutputStream(path);
+			bw=new BufferedWriter(new OutputStreamWriter(fos,charset));
+			bw.write(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if(bw!=null)bw.close();
+				if(fos!=null)fos.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 }

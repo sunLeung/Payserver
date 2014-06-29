@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html  ng-app>
+<head>
+     <title>Learning AngularJS</title>
+     <script src="scripts/angular.min.js" type="text/javascript"></script>
+     <script src="scripts/app.js" type="text/javascript"></script>
+     <script src="scripts/controllers/maincontroller.js" type="text/javascript"></script>
+</head>
+<body>
+     <form ng-submit="requestFunding()" ng-controller="StartUpController">
+ 		Starting: <input ng-change="computeNeeded()" ng-model="startingEstimate">
+ 		Recommendation: {{needed}}
+ 		<button>Fund my startup!</button>
+ 		<button ng-click="reset()">Reset</button>
+	</form>
+		
+<script>
+	function StartUpController($scope) {
+ 		$scope.computeNeeded = function() {
+ 			$scope.needed = $scope.startingEstimate * 10;
+		};
+		$scope.requestFunding = function() {
+			window.alert("Sorry, please get more customers first.");
+		};
+ 		$scope.reset = function() {
+			$scope.startingEstimate = 0;
+		};
+	}
+</script>
+</body>
+</html>

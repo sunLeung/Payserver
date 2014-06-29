@@ -1,0 +1,6 @@
+.default-border{
+	border: 2px solid #1abc9c;border-radius: 6px;
+	margin-bottom: 18px;
+	padding: 6px 1px 1px 6px;
+	overflow-y: auto;
+}
