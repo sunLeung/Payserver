@@ -1,31 +1,57 @@
-<!DOCTYPE html>
-<html  ng-app>
+<!DOCTYPE HTML>
+<html lang="zh-cn" ng-app="CSSClasses">
 <head>
-     <title>Learning AngularJS</title>
-     <script src="scripts/angular.min.js" type="text/javascript"></script>
-     <script src="scripts/app.js" type="text/javascript"></script>
-     <script src="scripts/controllers/maincontroller.js" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <title>CSSClasses</title>
+    <style type="text/css">
+        .ng-cloak {
+            display: none;
+        }
+        .css-form input.ng-invalid.ng-dirty {
+            background-color: #fa787e;
+        }
+        .css-form input.ng-valid.ng-dirty {
+            background-color: #78fa89;
+        }
+    </style>
 </head>
 <body>
-     <form ng-submit="requestFunding()" ng-controller="StartUpController">
- 		Starting: <input ng-change="computeNeeded()" ng-model="startingEstimate">
- 		Recommendation: {{needed}}
- 		<button>Fund my startup!</button>
- 		<button ng-click="reset()">Reset</button>
-	</form>
+<div ng-controller="MyCtrl" class="ng-cloak">
+    <form novalidate class="css-form" name="formName">
+        名字: <input name='myname' ng-model="user.name" type="text" required ng-maxlength=20 ng-minlength=5><br/>
+        Email: <input ng-model="user.email" type="email" required><br/>
+        性别: <input value="男" ng-model="user.gender" type="radio">男
+        <input value="女" ng-model="user.gender" type="radio">女
+        <br/>
+        <button ng-click="reset()">RESET</button>
+        <button ng-click="update(user)">SAVE</button>
+    <button ng-click="test()">test</button>
+    </form>
+    <pre>form = {{user | json}}</pre>
+    <pre>saved = {{saved | json}}</pre>
+    
+</div>
+<script src="lib/jquery/jquery-2.1.1.min.js"></script>
+<script src="lib/angular/angular.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var app = angular.module("CSSClasses", []);
+    app.controller("MyCtrl", function ($scope,$window) {
+        $scope.saved = {};
+        $scope.update = function(user) {
+            $scope.saved = angular.copy(user);
+        };
+
+        $scope.reset = function() {
+            $scope.user = angular.copy($scope.saved);
+        };
+	
+		$scope.test=function(){
+			console.log($scope.formName.myname.$pristine);
+		};
 		
-<script>
-	function StartUpController($scope) {
- 		$scope.computeNeeded = function() {
- 			$scope.needed = $scope.startingEstimate * 10;
-		};
-		$scope.requestFunding = function() {
-			window.alert("Sorry, please get more customers first.");
-		};
- 		$scope.reset = function() {
-			$scope.startingEstimate = 0;
-		};
-	}
+        $scope.reset();
+        //不合法的值将不会进入user
+    });
 </script>
 </body>
 </html>

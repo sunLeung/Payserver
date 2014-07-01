@@ -1,1 +1,4 @@
-var app = angular.module("MyTutorialApp",[]);
+/**
+ * angular 模块和路由
+ */
+var app = angular.module("app",[]);

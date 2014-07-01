@@ -10,7 +10,8 @@
 	<listener>
 		<listener-class>common.listener.InitListener</listener-class>
 	</listener>
-
+	
+	<!-- 支付服务器路由 -->
 	<servlet>
 		<servlet-name>route</servlet-name>
 		<servlet-class>common.route.RouteController</servlet-class>
@@ -18,6 +19,16 @@
 	<servlet-mapping>
 		<servlet-name>route</servlet-name>
 		<url-pattern>/callpay/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 管理后台数据路由 -->
+	<servlet>
+		<servlet-name>adminroute</servlet-name>
+		<servlet-class>common.admin.AdminServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>adminroute</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
 	</servlet-mapping>
 	
 </web-app>

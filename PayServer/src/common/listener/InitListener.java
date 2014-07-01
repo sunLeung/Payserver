@@ -7,6 +7,7 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.PropertyConfigurator;
 
+import common.admin.AdminServlet;
 import common.config.AppContent;
 import common.config.Config;
 import common.config.UnionsContent;
@@ -43,6 +44,8 @@ public class InitListener implements ServletContextListener{
 		UnionsContent.init();
 		//初始化应用配置
 		AppContent.init();
+		//初始化Admin管理方法
+		AdminServlet.initMethods();
 	}
 	
 	private void initConfig(ServletContextEvent sce){
