@@ -14,7 +14,7 @@ app.controller('getAppsInfo', ['$scope','service', function($scope,service) {
 	});
 }]);
 
-app.controller('createApp',['$scope','service',function($scope,$service){
+app.controller('createApp',['$scope','service',function($scope,service){
 	service.createApp().success(function(data, status, headers, config) {
 		$scope.apps = data;
   	}).error(function(data, status, headers, config) {

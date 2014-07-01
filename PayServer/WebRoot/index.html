@@ -4,15 +4,7 @@
     <meta charset="UTF-8">
     <title>CSSClasses</title>
     <style type="text/css">
-        .ng-cloak {
-            display: none;
-        }
-        .css-form input.ng-invalid.ng-dirty {
-            background-color: #fa787e;
-        }
-        .css-form input.ng-valid.ng-dirty {
-            background-color: #78fa89;
-        }
+        
     </style>
 </head>
 <body>
@@ -46,7 +38,7 @@
         };
 	
 		$scope.test=function(){
-			console.log($scope.formName.myname.$pristine);
+			console.log($scope.formName.myname.$valid);
 		};
 		
         $scope.reset();
