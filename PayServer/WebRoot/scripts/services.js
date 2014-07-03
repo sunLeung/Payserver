@@ -13,6 +13,9 @@ app.factory('service', ['$http', function($http) {
         },
         updateAppById: function(appbean) {
             return $http.post(baseUrl + '/'+'updateAppById'+'/' + appbean.appid, appbean, {params: {charge: true}});
+        },
+        getUnions:function(){
+        	return $http.get(baseUrl+'/'+'getUnionsInfo');
         }
     };
 }]);
