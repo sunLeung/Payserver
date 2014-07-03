@@ -5,3 +5,9 @@
 	overflow-y: auto;
 }
 
+.default-error{
+	color: #e74c3c !important ;
+	border-color: #e74c3c !important ;
+	-webkit-box-shadow: none !important ;
+	box-shadow: none !important ;
+}

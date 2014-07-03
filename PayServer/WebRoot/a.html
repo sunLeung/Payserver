@@ -68,34 +68,23 @@
       	<!-- 应用名填写  -->
   		<span>应用名</span>
   		<div class="form-group" app-name-valid style="display:inline-block;width:200px;">
-        	<input ng-model="appbean.appname" name='appname' type="text" placeholder="appname" class="form-control" required ng-maxlength=20>
+        	<input ng-model="newAppBean.appname" name='appname' type="text" placeholder="appname" class="form-control" required ng-maxlength=20>
         	<span ng-show='createAppForm.appname.$valid' class="input-icon fui-check-inverted" style=" color: #1abc9c;"></span>
     	</div>
         <span class='label label-danger'>{{createAppForm.appname.errorInfo}}</span>
     	<!-- 回调服务器 -->
       	<div>
       		<span>游戏服</span>
-      		<div id="tagsinput_tagsinput" class="tagsinput" style="height: 100%;">
-				<span class="tag">
-					<span>Clean&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
-				</span>
-				<span class="tag">
-					<span>Fresh&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
-				</span>
-				<span class="tag">
-					<span>Modern&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
-				</span>
-				<span class="tag">
-					<span>Unique&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
+      		<div id="gameListContent" class="tagsinput" style="height:auto; min-height:45px;">
+      			<span style="color:#cacfd2;">{{errorInfo.gameListEmptyTip}}</span>
+				<span class="tag" ng-repeat="server in newAppBean.servers">
+					<span>{{server.id}}&nbsp;&nbsp;</span>
+					<a class="tagsinput-remove-link" ng-click="tagGameListclick($index)"></a>
 				</span>
 			</div>
 			<div>
-				<div class="input-group">
-			      <input type="text" class="form-control">
+				<div class="input-group" add-game-server>
+			      <input type="text" class="form-control" placeholder="ID;URL" >
 			      <span class="input-group-btn">
 			        <button class="btn btn-default" type="button">Add</button>
 			      </span>
@@ -106,22 +95,11 @@
     	<!-- 已填写的渠道 -->
     	<div>
     		<span>渠道</span>
-	        <div id="tagsinput_tagsinput" class="tagsinput" style="height: 100%;">
-				<span class="tag">
-					<span>Clean&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
-				</span>
-				<span class="tag">
-					<span>Fresh&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
-				</span>
-				<span class="tag">
-					<span>Modern&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
-				</span>
-				<span class="tag">
-					<span>Unique&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link"></a>
+	        <div id="unionListContent" class="tagsinput" style="height:auto; min-height:45px;">
+	       		<span style="color:#cacfd2;">{{errorInfo.unionListEmptyTip}}</span>
+				<span class="tag" ng-repeat="union in newAppBean.uniondate">
+					<span>{{union.id}}&nbsp;&nbsp;</span>
+					<a class="tagsinput-remove-link" ng-click="tagUnionClick($index)"></a>
 				</span>
 			</div>
     	</div>
@@ -131,11 +109,13 @@
 			<div class="panel-group" id="accordion">
 	  			<div class="panel panel-default">
 		    		<div class="panel-heading">
-		      			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Collapsible Group Item #1</a></h4>
+		      			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#91">91助手</a></h4>
 		    		</div>
-			    	<div id="collapseOne" class="panel-collapse collapse">
+			    	<div id="91" class="panel-collapse collapse">
 			      		<div class="panel-body">
-			        		fuck you!
+			        		AppId<input class="form-control"/>
+			        		AppKey<input class="form-control"/>
+			        		<button class="btn btn-primary" type="button" style="float:right;margin:20px;">Add</button>
 			        	</div>
 			        </div>
 				</div>
