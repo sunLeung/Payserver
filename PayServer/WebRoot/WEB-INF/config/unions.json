@@ -1,4 +1,4 @@
 [
-	{"unionid":"150","name":"91助手","version":"1.0","uri":"/91/appid"},
-	{"unionid":"151","name":"pp","version":"1.0","uri":"/ppasset/appid"}
+	{"unionid":"150","name":"91助手","version":"1.0","uri":"/91/appid","params","key,secret"},
+	{"unionid":"151","name":"pp","version":"1.0","uri":"/ppasset/appid","params","appid,url"}
 ]
