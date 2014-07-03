@@ -5,6 +5,7 @@ public class Union {
 	private String name;
 	private String version;
 	private String uri;
+	private String params;
 	public String getUnionid() {
 		return unionid;
 	}
@@ -28,6 +29,12 @@ public class Union {
 	}
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+	public String getParams() {
+		return params;
+	}
+	public void setParams(String params) {
+		this.params = params;
 	}
 	
 }
