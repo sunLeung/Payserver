@@ -1,1 +1,12 @@
-[{"appid":1,"appname":"战谷2","uniondate":{"8888":{"appid":"201234","key":"adf","secret":"a1234"},"80031":{"key1":"fuck","key2":"154732"}},"servers":{"01":"http://192.168.1.187","02":"192.167.1.162"}}]
+[{
+	"appid": 1,
+	"appname": "战谷2",
+	"uniondate": [
+		{"unionid":"8888","appid":"fuck","secret":"you"},
+		{"unionid":"555","key1":"halo","key2":"you"}
+	],
+	"servers": [
+		{"serverid":"01","url":"http://192.168.1.187"},
+		{"serverid":"02","url":"http://192.168.1.188"}
+	]
+}]

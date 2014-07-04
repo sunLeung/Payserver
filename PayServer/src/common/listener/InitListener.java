@@ -28,7 +28,7 @@ public class InitListener implements ServletContextListener{
 		//清理c3p0
 		C3P0Utils.destroy();
 		//回写应用数据
-		AppContent.flush();
+//		AppContent.flush();
 	}
 
 	@Override

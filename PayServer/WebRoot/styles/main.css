@@ -11,3 +11,22 @@
 	-webkit-box-shadow: none !important ;
 	box-shadow: none !important ;
 }
+
+.server-input{
+	float: left;
+	border: 0px solid #bdc3c7;
+	border-left: 1px solid #bdc3c7;
+}
+
+.server-remove{
+	color: #d9534f;
+	cursor: pointer;
+	float:left;
+	margin:5px;
+}
+.server-remove a{
+	color: #d9534f;;
+}
+.server-remove a:hover{
+	color: red;
+}

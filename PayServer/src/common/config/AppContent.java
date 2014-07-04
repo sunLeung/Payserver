@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 import utils.FileUtils;
 import utils.JsonUtils;
+import utils.StringUtils;
 
 public class AppContent {
 	private static Log log=LogFactory.getLog(AppContent.class);
@@ -27,6 +28,7 @@ public class AppContent {
 				throw new IllegalArgumentException("Find the same appid "+a.getAppid()+".");
 			}
 			appContent.put(a.getAppid(), a);
+			a.initMapContent();
 		}
 		log.info("Init apps json data completed.");
 	}
@@ -53,21 +55,21 @@ public class AppContent {
 	
 	
 	public static void main(String[] args) {
-		init();
-		System.out.println(appContent.get(1).getAppname());
-		System.out.println(appContent.get(1).getUniondate().get("8888").get("key"));
-		App a=new App();
-		a.setAppid(2);
-		a.setAppname("废话");
-		Map<String,String> server=new HashMap<String,String>();
-		server.put("200", "http://192.168.1.1");
-		a.setServers(server);
-		Map<String,String> u=new HashMap<String,String>();
-		u.put("key", "asdfasdlkqj");
-		Map<String,Map<String,String>> uu=new HashMap<String,Map<String,String>>();
-		uu.put("902", u);
-		a.setUniondate(uu);
-		appContent.put(2, a);
-		flush();
+//		init();
+//		System.out.println(appContent.get(1).getAppname());
+//		System.out.println(appContent.get(1).getUniondate().get("8888").get("key"));
+//		App a=new App();
+//		a.setAppid(2);
+//		a.setAppname("废话");
+//		Map<String,String> server=new HashMap<String,String>();
+//		server.put("200", "http://192.168.1.1");
+//		a.setServers(server);
+//		Map<String,String> u=new HashMap<String,String>();
+//		u.put("key", "asdfasdlkqj");
+//		Map<String,Map<String,String>> uu=new HashMap<String,Map<String,String>>();
+//		uu.put("902", u);
+//		a.setUniondate(uu);
+//		appContent.put(2, a);
+//		flush();
 	}
 }

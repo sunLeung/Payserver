@@ -45,8 +45,18 @@
         };
 	
 		$scope.test=function(){
-			$scope.groups.push(3);
+			$scope.testdate=[];
+			$scope.testdate.push('a');
+			$scope.testdate.push('b');
+			$scope.testdate.push('c');
+			console.log($scope.testdate);
+			a($scope.testdate);
+			console.log($scope.testdate);
 		};
+		
+		a=function(array){
+			array.splice(0,1);
+		}
 		
         $scope.reset();
         //不合法的值将不会进入user

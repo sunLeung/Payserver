@@ -17,10 +17,6 @@ app.directive('appNameValid',[function(){
 app.directive('addGameServer',[function(){
 	return{
 		link:function(scope,element,attrs){
-			scope.errorInfo={
-				gameListEmptyTip:"请配置相应道具发放服务器",
-				unionListEmptyTip:"请配置渠道"
-			};
 			var input=element.find('input');
 			element.find('button').on('click',function(){
 				var value=input.val();
@@ -42,7 +38,7 @@ app.directive('addGameServer',[function(){
 					
 					input.val('');
 					var server={'id':sid,'url':surl};
-					scope.errorInfo.gameListEmptyTip="";
+					scope.errorContent.gameListEmptyTip="";
 					//创建新服务器数据
 					scope.newAppBean.servers.push(server);
 					scope.$apply();
@@ -52,13 +48,21 @@ app.directive('addGameServer',[function(){
 			scope.tagGameListclick=function(index){
 				scope.newAppBean.servers.splice(index,1);
 				if(scope.newAppBean.servers.length<=0)
-					scope.errorInfo.gameListEmptyTip="请配置相应道具发放服务器";
+					scope.errorContent.gameListEmptyTip="请配置相应道具发放服务器";
 			}
 			
-			scope.tagUnionClick=function(index){
+			scope.tagUnionClick=function(index,unionid){
 				scope.newAppBean.uniondate.splice(index,1);
+				var us=scope.tempUnions[unionid];
+				for(k in us){
+					if(k!="unionid"){
+						scope.tempUnions[unionid][k]="";
+					}
+				}
+				console.log(scope.newAppBean);
+				console.log(scope.tempUnions);
 				if(scope.newAppBean.uniondate.length<=0)
-					scope.errorInfo.unionListEmptyTip="请配置渠道";
+					scope.errorContent.unionListEmptyTip="请配置渠道";
 			}
 			
 			input.on('focus',function(){
@@ -67,4 +71,31 @@ app.directive('addGameServer',[function(){
 			});
 		}
 	};
+}]);
+
+app.directive('addNewUnion',['service',function(service){
+	return{
+		link:function(scope,element,attrs){
+			scope.addUnion=function(unionid){
+				var union=scope.tempUnions[unionid];
+				var result=true;
+				for(k in union){
+					if(k.indexOf('$')>=0)continue;
+					if(union[k]==null||union[k]==""){
+						var i=element.find("input[name='union."+unionid+"."+k+"']");
+						i.addClass('default-error');
+						result=false;
+					}else{
+						var i=element.find("input[name='union."+unionid+"."+k+"']");
+						i.removeClass('default-error');
+					}
+				}
+				if(result){
+					service.pushNewUnion(union,scope);
+					console.log(scope.newAppBean.uniondate);
+					scope.errorContent.unionListEmptyTip="";
+				}
+			}
+		}
+	}
 }]);

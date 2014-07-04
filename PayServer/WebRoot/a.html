@@ -18,7 +18,7 @@
 	  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body ng-controller="controller">
 	<!-- 导航条 -->
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -40,7 +40,7 @@
 	<div>
 		<a data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-primary" style="float:right;margin:10px;"><span class="fui-plus"></span>添加应用</a>
 	</div>
-    <table class="table table-hover default-border" ng-controller="getAppsInfo">
+    <table class="table table-hover default-border">
     	<thead>
     		<td>应用ID</td>
     		<td>应用名称</td>
@@ -56,7 +56,7 @@
     
 
 <!-- 模态框 -->
-<div class="modal fade" ng-controller="createApp" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" data-backdrop="static" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <form name='createAppForm' novalidate>
   <div class="modal-dialog">
     <div class="modal-content">
@@ -75,59 +75,33 @@
     	<!-- 回调服务器 -->
       	<div>
       		<span>游戏服</span>
-      		<div id="gameListContent" class="tagsinput" style="height:auto; min-height:45px;">
-      			<span style="color:#cacfd2;">{{errorInfo.gameListEmptyTip}}</span>
-				<span class="tag" ng-repeat="server in newAppBean.servers">
-					<span>{{server.id}}&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link" ng-click="tagGameListclick($index)"></a>
-				</span>
-			</div>
-			<div>
-				<div class="input-group" add-game-server>
-			      <input type="text" class="form-control" placeholder="ID;URL" >
-			      <span class="input-group-btn">
-			        <button class="btn btn-default" type="button">Add</button>
-			      </span>
-			    </div>
+      		<div class="default-border" style="height:auto; min-height:45px;">
+      			<div style="margin-right: 5px;margin-bottom: 5px;display:inline-block;width:440px;" ng-repeat="server in newAppBean.servers">
+      				<input ng-model="server.serverid" style="width: 85px;" class="form-control server-input" placeholder="serverid"/>
+      				<input ng-model="server.url" style="width: 300px;" class="form-control server-input" placeholder="url"/>
+      				<div class="server-remove"><a ng-click="removeServer(server.serverid)"><span class="glyphicon glyphicon-minus"></span></a></div>
+      			</div>
+      			<span ng-show='newAppBean.servers.length==0' style="color:#cacfd2;">请添加服务器</span>
+      			<a class='btn btn-primary' ng-click="addServer()" style="float:right;margin:8px;"><span class="fui-plus"></span></a>
 			</div>
       	</div>
     	
-    	<!-- 已填写的渠道 -->
-    	<div>
-    		<span>渠道</span>
-	        <div id="unionListContent" class="tagsinput" style="height:auto; min-height:45px;">
-	       		<span style="color:#cacfd2;">{{errorInfo.unionListEmptyTip}}</span>
-				<span class="tag" ng-repeat="union in newAppBean.uniondate">
-					<span>{{union.id}}&nbsp;&nbsp;</span>
-					<a class="tagsinput-remove-link" ng-click="tagUnionClick($index)"></a>
-				</span>
-			</div>
-    	</div>
         <!-- 渠道信息输入面板 -->
       	<div class="default-border">
       		<span>渠道信息填写</span>
 			<div class="panel-group" id="accordion">
-	  			<div class="panel panel-default">
+	  			<div class="panel panel-default" ng-repeat="union in unionMapContent">
 		    		<div class="panel-heading">
-		      			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#91">91助手</a></h4>
+		      			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#{{$index}}">{{union.name}}</a><span ng-show="" style="float:right;color:#16a085;" class="glyphicon glyphicon-ok"></span></h4>
 		    		</div>
-			    	<div id="91" class="panel-collapse collapse">
+			    	<div id="{{$index}}" class="panel-collapse collapse" add-new-union>
 			      		<div class="panel-body">
-			        		AppId<input class="form-control"/>
-			        		AppKey<input class="form-control"/>
-			        		<button class="btn btn-primary" type="button" style="float:right;margin:20px;">Add</button>
+			      			<div ng-repeat="p in union.paramsArray">
+			      				{{p}}<input ng-model="newAppBean.uniondate" name="union.{{union.unionid}}.{{p}}" class="form-control" required/>
+			      			</div>
+			        		<button class="btn btn-primary" type="button" style="float:right;margin-top:10px;" ng-click="addUnion(union.unionid)">Add</button>
 			        	</div>
 			        </div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Collapsible Group Item #2</a></h4>
-	    			</div>
-	    			<div id="collapseTwo" class="panel-collapse collapse">
-	      				<div class="panel-body">
-	        				Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-						</div>
-					</div>
 				</div>
 			</div>
       	</div>
