@@ -67,4 +67,12 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	$scope.isAddUnion=function(unionid){
 		$scope.newAppBean
 	};
+	
+	$scope.initNewAppBean=function(){
+		var bean=newAppBean={
+			appname:"",
+			servers:[],
+			uniondate:{}
+		};
+	}
 }]);
