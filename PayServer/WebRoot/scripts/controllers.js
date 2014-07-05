@@ -7,14 +7,7 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	/**渠道临时数据容器*/
 	$scope.unionTempContent={};
 	/**创建新应用实体*/
-	$scope.newAppBean={
-		appname:"",
-		servers:[
-			{"serverid":"01","url":"http://192.168.1.187"},
-			{"serverid":"02","url":"http://192.168.1.188"}
-		],
-		uniondate:[]
-	};
+	$scope.newAppBean={};
 	/**错误提示*/
 	$scope.errorContent = {
 		"gameListEmptyTip":"请配置相应道具发放服务器",
@@ -65,14 +58,46 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	
 	/**判断是否配置好该渠道*/
 	$scope.isAddUnion=function(unionid){
-		$scope.newAppBean
+		var unions=$scope.newAppBean.uniondate;
+		for(index in unions){
+			if(unions[index].unionid=unionid){
+				var union=unions[index];
+				var params=union.paramsArray;
+				var result=true;
+				for(param in params){
+					var p=union[params[param]];
+					if(p==null||p==""){
+						union.isCompleted=false;
+						return;
+					}
+				}
+				union.isCompleted=true;
+			}
+		}
 	};
 	
+	/**初始化新应用数据*/
 	$scope.initNewAppBean=function(){
-		var bean=newAppBean={
+		var bean={
 			appname:"",
 			servers:[],
-			uniondate:{}
+			uniondate:[]
 		};
+		
+		for(unionid in $scope.unionMapContent){
+			var union=$scope.unionMapContent[unionid];
+			var obj={
+				"unionid":unionid,
+				"name":union.name,
+				"uri":union.uri,
+				"paramsArray":union.paramsArray,
+				"isCompleted":false
+			};
+			for(param in union.paramsArray){
+				obj[union.paramsArray[param]]="";
+			}
+			bean.uniondate.push(obj);
+		}
+		$scope.newAppBean=bean;
 	}
 }]);
