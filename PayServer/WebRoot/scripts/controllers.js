@@ -5,7 +5,7 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	/**渠道列表(Map)*/
 	$scope.unionMapContent = {};
 	/**创建新应用实体*/
-	$scope.newAppBean={};
+	$scope.appBean={};
 	/**错误提示*/
 	$scope.errorContent = {
 		"gameListEmptyTip":"请配置相应道具发放服务器",
@@ -80,17 +80,17 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 			"serverid":null,
 			"url":null
 		};
-		$scope.newAppBean.servers.push(server);
+		$scope.appBean.servers.push(server);
 	};
 	
 	/**移除新游戏服*/
 	$scope.removeServer=function(serverid){
-		service.removeById(serverid,$scope.newAppBean.servers,'serverid',$scope);
+		service.removeById(serverid,$scope.appBean.servers,'serverid',$scope);
 	};
 	
 	/**判断是否配置好该渠道*/
 	$scope.isAddUnion=function(unionid){
-		var unions=$scope.newAppBean.uniondata;
+		var unions=$scope.appBean.uniondata;
 		for(index in unions){
 			if(unions[index].unionid==unionid){
 				var union=unions[index];
@@ -109,7 +109,7 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	};
 	
 	/**初始化新应用数据*/
-	$scope.initNewAppBean=function(){
+	$scope.initappBean=function(){
 		var bean={
 			appname:"",
 			servers:[],
@@ -130,14 +130,14 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 			}
 			bean.uniondata.push(obj);
 		}
-		$scope.newAppBean=bean;
-		$scope.newAppBean.action="create";
-		$scope.newAppBean.actionInfo="添加";
+		$scope.appBean=bean;
+		$scope.appBean.action="create";
+		$scope.appBean.actionInfo="添加";
 	}
 	
 	/**提交新应用*/
 	$scope.submitApp=function(){
-		var bean=$scope.newAppBean;
+		var bean=$scope.appBean;
 		//判断bean是否符合提交条件
 		if(bean!=undefined&&bean!=null&&bean.appname!=undefined&&bean.appname!=null&&bean.appname!=""){
 			var postBean={
@@ -191,9 +191,9 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	
 	/**打开应用信息界面*/
 	$scope.openAppInfo=function(app){
-		$scope.newAppBean=app;
-		$scope.newAppBean.action="update";
-		$scope.newAppBean.actionInfo="更新";
+		$scope.appBean=app;
+		$scope.appBean.action="update";
+		$scope.appBean.actionInfo="更新";
 		$('#myModal').modal('show');
 	};
 	/**删除应用*/

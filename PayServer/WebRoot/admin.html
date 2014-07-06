@@ -38,7 +38,7 @@
     <!-- 主体内容 -->
 	<div class="container" style="margin-top:80px;">
 	<div>
-		<a ng-click="initNewAppBean()" data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-primary" style="float:right;margin:10px;"><span class="fui-plus"></span>添加应用</a>
+		<a ng-click="initappBean()" data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-primary" style="float:right;margin:10px;"><span class="fui-plus"></span>添加应用</a>
 	</div>
     <table class="table table-hover default-border">
     	<thead>
@@ -64,13 +64,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">{{newAppBean.actionInfo}}应用</h4>
+        <h4 class="modal-title" id="myModalLabel">{{appBean.actionInfo}}应用</h4>
       </div>
       <div class="modal-body">
       	<!-- 应用名填写  -->
   		<span>应用名</span>
   		<div class="form-group" app-name-valid style="display:inline-block;width:200px;">
-        	<input ng-model="newAppBean.appname" name='appname' type="text" placeholder="appname" class="form-control" required ng-maxlength=20>
+        	<input ng-model="appBean.appname" name='appname' type="text" placeholder="appname" class="form-control" required ng-maxlength=20>
         	<span ng-show='createAppForm.appname.$valid' class="input-icon fui-check-inverted" style=" color: #1abc9c;"></span>
     	</div>
         <span class='label label-danger'>{{errorContent.appnameEmptyTip}}</span>
@@ -78,12 +78,12 @@
       	<div>
       		<span>游戏服</span>
       		<div class="default-border" style="height:auto; min-height:45px;">
-      			<div style="margin-right: 5px;margin-bottom: 5px;display:inline-block;width:440px;" ng-repeat="server in newAppBean.servers">
+      			<div style="margin-right: 5px;margin-bottom: 5px;display:inline-block;width:440px;" ng-repeat="server in appBean.servers">
       				<input ng-model="server.serverid" style="width: 85px;" class="form-control server-input" placeholder="serverid"/>
       				<input ng-model="server.url" style="width: 300px;" class="form-control server-input" placeholder="url"/>
       				<div class="server-remove"><a ng-click="removeServer(server.serverid)"><span class="glyphicon glyphicon-minus"></span></a></div>
       			</div>
-      			<span ng-show='newAppBean.servers.length==0' style="color:#cacfd2;">请添加服务器</span>
+      			<span ng-show='appBean.servers.length==0' style="color:#cacfd2;">请添加服务器</span>
       			<a class='btn btn-primary' ng-click="addServer()" style="float:right;margin:8px;"><span class="fui-plus"></span></a>
 			</div>
       	</div>
@@ -92,7 +92,7 @@
       	<div class="default-border">
       		<span>渠道信息填写</span>
 			<div class="panel-group" id="accordion">
-	  			<div class="panel panel-default" ng-repeat="union in newAppBean.uniondata">
+	  			<div class="panel panel-default" ng-repeat="union in appBean.uniondata">
 		    		<div class="panel-heading">
 		      			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#{{$index}}">{{union.name}}<span style="margin-left: 20px;">{{union.uri}}</span></a><span ng-show="union.isCompleted" style="float:right;color:#16a085;" class="glyphicon glyphicon-ok"></span></h4>
 		    		</div>
@@ -109,7 +109,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary" submit-app>{{newAppBean.actionInfo}}</button>
+        <button type="button" class="btn btn-primary" submit-app>{{appBean.actionInfo}}</button>
       </div>
     </div>
   </div>

@@ -30,7 +30,7 @@ app.factory('service', ['$http',function($http) {
         },
         /**创建应用时增加渠道*/
         pushUnion:function(union,scope){
-        	var us=scope.newAppBean.uniondate;
+        	var us=scope.appBean.uniondate;
         	removeById(union.unionid,us,'unionid',scope)
         	us.push(union);
         },
