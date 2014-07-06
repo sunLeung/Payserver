@@ -30,11 +30,11 @@ app.directive('unionCheck',['service',function(service){
 
 
 //提交新应用
-app.directive('createNewApp',['service',function(service){
+app.directive('submitApp',['service',function(service){
 	return{
 		link:function(scope,element,attrs){
 			element.on('click',function(){
-				var result=scope.createNewApp();
+				var result=scope.submitApp();
 				if(result){
 					$('#myModal').modal('hide');
 				}else{

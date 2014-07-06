@@ -17,13 +17,47 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	/**初始化应用列表方法*/
 	$scope.loadApps=function(){
 		service.getApps().success(function(data, status, headers, config) {
+			for(index in data){
+				var unions=[];
+				for(unionid in $scope.unionMapContent){
+					var union=$scope.unionMapContent[unionid];
+					var obj={
+						"unionid":unionid,
+						"name":union.name,
+						"uri":union.uri,
+						"paramsArray":union.paramsArray,
+						"isCompleted":false
+					};
+					for(param in union.paramsArray){
+						obj[union.paramsArray[param]]="";
+					}
+					unions.push(obj);
+				}
+				var dataunion=data[index].uniondata;
+				for(du in dataunion){
+					var du_id= dataunion[du].unionid;
+					for(uu in unions){
+						if(du_id==unions[uu].unionid){
+							var mark=true;
+							for(p in unions[uu].paramsArray){
+								var key=unions[uu].paramsArray[p];
+								unions[uu][key]=dataunion[du][key];
+								if(dataunion[du][key]=undefined||dataunion[du][key]==null||dataunion[du][key]==""){
+									mark=false;
+								}
+							}
+							unions[uu].isCompleted=mark;
+						}
+					}
+				}
+				data[index].uniondata=unions;
+			}
 			$scope.appsContent = data;
 	  	}).error(function(data, status, headers, config) {
 	  		console.log('error getAppsInfo status:'+status+'  data:'+data);
 		});
 	}
-	/**初始化应用列表*/
-	$scope.loadApps();
+
 	
 	/**初始化渠道列表*/
 	service.getUnions().success(function(data, status, headers, config) {
@@ -36,6 +70,9 @@ app.controller('controller', ['$scope','service', function($scope,service) {
   	}).error(function(data, status, headers, config) {
   		console.log('error getUnions status:'+status+'  data:'+data);
 	});
+	
+	/**初始化应用列表*/
+	$scope.loadApps();
 	
 	/**添加新游戏服*/
 	$scope.addServer=function(){
@@ -53,9 +90,9 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	
 	/**判断是否配置好该渠道*/
 	$scope.isAddUnion=function(unionid){
-		var unions=$scope.newAppBean.uniondate;
+		var unions=$scope.newAppBean.uniondata;
 		for(index in unions){
-			if(unions[index].unionid=unionid){
+			if(unions[index].unionid==unionid){
 				var union=unions[index];
 				var params=union.paramsArray;
 				var result=true;
@@ -76,7 +113,7 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 		var bean={
 			appname:"",
 			servers:[],
-			uniondate:[]
+			uniondata:[]
 		};
 		
 		for(unionid in $scope.unionMapContent){
@@ -91,21 +128,24 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 			for(param in union.paramsArray){
 				obj[union.paramsArray[param]]="";
 			}
-			bean.uniondate.push(obj);
+			bean.uniondata.push(obj);
 		}
 		$scope.newAppBean=bean;
+		$scope.newAppBean.action="create";
+		$scope.newAppBean.actionInfo="添加";
 	}
 	
-	$scope.createNewApp=function(){
+	/**提交新应用*/
+	$scope.submitApp=function(){
 		var bean=$scope.newAppBean;
 		//判断bean是否符合提交条件
 		if(bean!=undefined&&bean!=null&&bean.appname!=undefined&&bean.appname!=null&&bean.appname!=""){
 			var postBean={
 				appname:bean.appname,
 				servers:bean.servers,
-				uniondate:[]
+				uniondata:[]
 			};
-			var unions=bean.uniondate;
+			var unions=bean.uniondata;
 			for(index in unions){
 				var union=unions[index];
 				if(union.isCompleted){
@@ -115,20 +155,59 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 					for(param in union.paramsArray){
 						tu[union.paramsArray[param]]=union[union.paramsArray[param]];
 					}
-					postBean.uniondate.push(tu);
+					postBean.uniondata.push(tu);
 				}
 			}
-			service.createApp(postBean).success(function(data, status, headers, config) {
-				var code=data.code;
-				if(code==0){
-					//reload数据
-					$scope.loadApps();
-				}
-		  	}).error(function(data, status, headers, config) {
-		  		console.log('error createApp status:'+status+'  data:'+data);
-			});
-			return true;
+			
+			if(bean.action=='create'){
+				service.createApp(postBean).success(function(data, status, headers, config) {
+					console.log('[info] createApp response:'+JSON.stringify(data));
+					var code=data.code;
+					if(code==0){
+						//reload数据
+						$scope.loadApps();
+					}
+			  	}).error(function(data, status, headers, config) {
+			  		console.log('error createApp status:'+status+'  data:'+data);
+				});
+				return true;
+			}else if(bean.action=='update'){
+				postBean.appid=bean.appid;
+				service.updateApp(postBean).success(function(data, status, headers, config) {
+					console.log('[info] updateApp response:'+JSON.stringify(data));
+					var code=data.code;
+					if(code==0){
+						//reload数据
+						$scope.loadApps();
+					}
+			  	}).error(function(data, status, headers, config) {
+			  		console.log('error updateApp status:'+status+'  data:'+data);
+				});
+				return true;
+			}
 		}
 		return false;
 	}
+	
+	/**打开应用信息界面*/
+	$scope.openAppInfo=function(app){
+		$scope.newAppBean=app;
+		$scope.newAppBean.action="update";
+		$scope.newAppBean.actionInfo="更新";
+		$('#myModal').modal('show');
+	};
+	/**删除应用*/
+	$scope.deleteApp=function(app){
+		service.deleteAppById(app.appid).success(function(data, status, headers, config) {
+			console.log('[info] deleteApp response:'+JSON.stringify(data));
+			var code=data.code;
+			if(code==0){
+				//reload数据
+				$scope.loadApps();
+			}
+	  	}).error(function(data, status, headers, config) {
+	  		console.log('error deleteApp status:'+status+'  data:'+data);
+		});
+		return true;
+	};
 }]);

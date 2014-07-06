@@ -14,9 +14,15 @@ app.factory('service', ['$http',function($http) {
         getApps: function() {
             return $http.get(baseUrl+'/'+'getAppsInfo');
         },
-        /**通过ID更新应用数据*/
-        updateAppById: function(appbean) {
-            return $http.post(baseUrl + '/'+'updateAppById'+'/' + appbean.appid, appbean, {params: {charge: true}});
+        /**更新应用数据*/
+        updateApp: function(appbean) {
+        	var url = baseUrl + '/' + 'updateApp';
+            return $http.post(url, appbean);
+        },
+        /**删除应用数据*/
+        deleteAppById: function(appid) {
+        	var url = baseUrl + '/' + 'deleteAppById';
+            return $http.post(url, appid);
         },
         /**获取渠道数据*/
         getUnions:function(){

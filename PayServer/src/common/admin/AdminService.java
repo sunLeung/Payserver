@@ -3,6 +3,9 @@ package common.admin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import utils.JsonUtils;
 import utils.RespUtils;
 import utils.ResqUtils;
@@ -13,6 +16,7 @@ import common.config.AppContent;
 import common.config.UnionsContent;
 
 public class AdminService {
+	private static Log log=LogFactory.getLog(AdminService.class);
 	
 	public static void getAppsInfo(HttpServletRequest res,HttpServletResponse resp){
 		RespUtils.jsonResp(resp, AppContent.appContent,"application/json;charset=UTF-8");
@@ -33,9 +37,53 @@ public class AdminService {
 				AppContent.appContent.put(appid, app);
 				AppContent.flush();
 				RespUtils.commonResp(resp, RespUtils.CODE.SUCCESS);
+				log.info("create app [appname"+ app.getAppname()+" appid="+app.getAppid()+"] succeed");
 			}else{
 				RespUtils.commonResp(resp, RespUtils.CODE.FAIL);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			RespUtils.commonResp(resp, RespUtils.CODE.EXCEPTION);
+		}
+	}
+	
+	public static void updateApp(HttpServletRequest res,HttpServletResponse resp){
+		try {
+			String postContent=ResqUtils.getPostString(res);
+			if(StringUtils.isNotBlank(postContent)){
+				App app=(App)JsonUtils.objectFromJson(postContent, App.class);
+				app.initMapContent();
+				
+				App oldApp=AppContent.appContent.get(app.getAppid());
+				if(oldApp!=null){
+					AppContent.appContent.put(app.getAppid(), app);
+					AppContent.flush();
+					RespUtils.commonResp(resp, RespUtils.CODE.SUCCESS);
+					log.info("update app [appname"+ app.getAppname()+" appid="+app.getAppid()+"] succeed");
+					return;
+				}
+			}
+			RespUtils.commonResp(resp, RespUtils.CODE.FAIL);
+		} catch (Exception e) {
+			e.printStackTrace();
+			RespUtils.commonResp(resp, RespUtils.CODE.EXCEPTION);
+		}
+	}
+	public static void deleteAppById(HttpServletRequest res,HttpServletResponse resp){
+		try {
+			String postContent=ResqUtils.getPostString(res);
+			if(StringUtils.isNotBlank(postContent)){
+				int appid=Integer.valueOf(postContent);
+				App oldApp=AppContent.appContent.get(appid);
+				if(oldApp!=null){
+					AppContent.appContent.remove(appid);
+					AppContent.flush();
+					RespUtils.commonResp(resp, RespUtils.CODE.SUCCESS);
+					log.info("delete app [appname"+ oldApp.getAppname()+" appid="+oldApp.getAppid()+"] succeed");
+					return;
+				}
+			}
+			RespUtils.commonResp(resp, RespUtils.CODE.FAIL);
 		} catch (Exception e) {
 			e.printStackTrace();
 			RespUtils.commonResp(resp, RespUtils.CODE.EXCEPTION);

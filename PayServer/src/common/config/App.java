@@ -13,7 +13,7 @@ import utils.StringUtils;
 public class App {
 	private int appid;
 	private String appname;
-	private Map<String,String>[] uniondate;
+	private Map<String,String>[] uniondata;
 	private Map<String,String>[] servers;
 	private Map<String,Map<String,String>> unionContent=new ConcurrentHashMap<String,Map<String,String>>();
 	private Map<String,Map<String,String>> serverContent=new ConcurrentHashMap<String,Map<String,String>>();;
@@ -29,11 +29,11 @@ public class App {
 	public void setAppname(String appname) {
 		this.appname = appname;
 	}
-	public Map<String, String>[] getUniondate() {
-		return uniondate;
+	public Map<String, String>[] getUniondata() {
+		return uniondata;
 	}
-	public void setUniondate(Map<String, String>[] uniondate) {
-		this.uniondate = uniondate;
+	public void setUniondata(Map<String, String>[] uniondata) {
+		this.uniondata = uniondata;
 	}
 	public Map<String, String>[] getServers() {
 		return servers;
@@ -56,7 +56,7 @@ public class App {
 				serverContent.put(sid, map);
 		}
 		//初始化渠道检索表
-		for(Map<String,String> map:uniondate){
+		for(Map<String,String> map:uniondata){
 			String unionid=map.get("unionid");
 			if(StringUtils.isNotBlank(unionid))
 				unionContent.put(unionid, map);
