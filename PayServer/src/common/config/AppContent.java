@@ -21,14 +21,16 @@ public class AppContent {
 		log.info("Star init apps json data.");
 		String filePath=Config.CONFIG_DIR + File.separator + "apps.json";
 		String jsonSrc=FileUtils.readFileToString(filePath);
-		App[] list=(App[])JsonUtils.objectFromJson(jsonSrc, App[].class);
-		for(App a:list){
-			if(appContent.containsKey(a.getAppid())){
-				log.error("Find the same appid "+a.getAppid()+".");
-				throw new IllegalArgumentException("Find the same appid "+a.getAppid()+".");
+		if(StringUtils.isNotBlank(jsonSrc)){
+			App[] list=(App[])JsonUtils.objectFromJson(jsonSrc, App[].class);
+			for(App a:list){
+				if(appContent.containsKey(a.getAppid())){
+					log.error("Find the same appid "+a.getAppid()+".");
+					throw new IllegalArgumentException("Find the same appid "+a.getAppid()+".");
+				}
+				appContent.put(a.getAppid(), a);
+				a.initMapContent();
 			}
-			appContent.put(a.getAppid(), a);
-			a.initMapContent();
 		}
 		log.info("Init apps json data completed.");
 	}

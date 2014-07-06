@@ -5,10 +5,11 @@ app.directive('appNameValid',[function(){
 			scope.$watch('createAppForm.appname.$valid', function(newVal, oldVal) {
     			if(scope.createAppForm.appname.$dirty&&!newVal){
     				element.addClass('has-error');
-    				scope.createAppForm.appname.errorInfo='应用名不能为空,且少于20个字符.';
+    				scope.errorContent.appnameEmptyTip='应用名不能为空,且少于20个字符.';
     			}else{
+    				$('input[name=appname]').removeClass('default-error');
     				element.removeClass('has-error');
-    				scope.createAppForm.appname.errorInfo='';
+    				scope.errorContent.appnameEmptyTip='';
     			}
     		});
 		}
@@ -26,3 +27,23 @@ app.directive('unionCheck',['service',function(service){
 		}
 	}
 }]);
+
+
+//提交新应用
+app.directive('createNewApp',['service',function(service){
+	return{
+		link:function(scope,element,attrs){
+			element.on('click',function(){
+				var result=scope.createNewApp();
+				if(result){
+					$('#myModal').modal('hide');
+				}else{
+					$('input[name=appname]').addClass('default-error');
+    				scope.errorContent.appnameEmptyTip='应用名不能为空,且少于20个字符.';
+    				scope.$apply();
+				}
+			});
+		}
+	}
+}]);
+

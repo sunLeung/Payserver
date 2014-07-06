@@ -45,12 +45,9 @@
         };
 	
 		$scope.test=function(){
-			var obj={"a":"fuck you"};
-			$scope.testdate=[];
-			$scope.testdate.push(obj);
-			obj.a="hey";
-			console.log($scope.testdate);
-			console.log(obj);
+			$scope.test={};
+			//console.log(b);
+			console.log($scope.test.a===undefined);
 		};
 		
 		a=function(array){

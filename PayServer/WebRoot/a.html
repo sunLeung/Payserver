@@ -71,7 +71,7 @@
         	<input ng-model="newAppBean.appname" name='appname' type="text" placeholder="appname" class="form-control" required ng-maxlength=20>
         	<span ng-show='createAppForm.appname.$valid' class="input-icon fui-check-inverted" style=" color: #1abc9c;"></span>
     	</div>
-        <span class='label label-danger'>{{createAppForm.appname.errorInfo}}</span>
+        <span class='label label-danger'>{{errorContent.appnameEmptyTip}}</span>
     	<!-- 回调服务器 -->
       	<div>
       		<span>游戏服</span>
@@ -107,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-        <button type="button" class="btn btn-primary">添加</button>
+        <button type="button" class="btn btn-primary" create-new-app>添加</button>
       </div>
     </div>
   </div>

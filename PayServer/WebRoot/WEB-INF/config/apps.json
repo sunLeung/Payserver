@@ -1,12 +1,1 @@
-[{
-	"appid": 1,
-	"appname": "战谷2",
-	"uniondate": [
-		{"unionid":"8888","appid":"fuck","secret":"you"},
-		{"unionid":"555","key1":"halo","key2":"you"}
-	],
-	"servers": [
-		{"serverid":"01","url":"http://192.168.1.187"},
-		{"serverid":"02","url":"http://192.168.1.188"}
-	]
-}]
+[{"appid":1,"appname":"战鼓","uniondate":[{"unionid":"150","key":"adsf","secret":"asdf"},{"unionid":"150","appid":"adsf","url":"adsf"}],"servers":[{"serverid":"01","url":"http://baidu.com"}]}]

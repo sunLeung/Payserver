@@ -42,17 +42,11 @@ public class App {
 		this.servers = servers;
 
 	}
-	public Map<String, Map<String, String>> getUnionContent() {
+	public Map<String, Map<String, String>> unionContent() {
 		return unionContent;
 	}
-	public void setUnionContent(Map<String, Map<String, String>> unionContent) {
-		this.unionContent = unionContent;
-	}
-	public Map<String, Map<String, String>> getServerContent() {
+	public Map<String, Map<String, String>> serverContent() {
 		return serverContent;
-	}
-	public void setServerContent(Map<String, Map<String, String>> serverContent) {
-		this.serverContent = serverContent;
 	}
 	public void initMapContent(){
 		//初始化服务器检索表

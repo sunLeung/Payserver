@@ -4,23 +4,26 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	$scope.appsContent={};
 	/**渠道列表(Map)*/
 	$scope.unionMapContent = {};
-	/**渠道临时数据容器*/
-	$scope.unionTempContent={};
 	/**创建新应用实体*/
 	$scope.newAppBean={};
 	/**错误提示*/
 	$scope.errorContent = {
 		"gameListEmptyTip":"请配置相应道具发放服务器",
-		"unionListEmptyTip":"请配置渠道"
+		"unionListEmptyTip":"请配置渠道",
+		"appnameEmptyTip":""
 	};
 	
 	//方法
+	/**初始化应用列表方法*/
+	$scope.loadApps=function(){
+		service.getApps().success(function(data, status, headers, config) {
+			$scope.appsContent = data;
+	  	}).error(function(data, status, headers, config) {
+	  		console.log('error getAppsInfo status:'+status+'  data:'+data);
+		});
+	}
 	/**初始化应用列表*/
-	service.getApps().success(function(data, status, headers, config) {
-		$scope.appsContent = data;
-  	}).error(function(data, status, headers, config) {
-  		cosole.log('error getAppsInfo status:'+status+'  data:'+data);
-	});
+	$scope.loadApps();
 	
 	/**初始化渠道列表*/
 	service.getUnions().success(function(data, status, headers, config) {
@@ -29,17 +32,9 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 			//初始化渠道列表(Array)
 			var union=$scope.unionMapContent[index];
 			var paramsArray=union.paramsArray=union.params.split(',');
-			//初始化渠道临时数据容器
-			var u={
-				"unionid":union.unionid,
-			};
-			for(i in paramsArray){
-				u[paramsArray[i]]="";
-			}
-			$scope.unionTempContent[union.unionid]=u;
 		}
   	}).error(function(data, status, headers, config) {
-  		cosole.log('error getUnions status:'+status+'  data:'+data);
+  		console.log('error getUnions status:'+status+'  data:'+data);
 	});
 	
 	/**添加新游戏服*/
@@ -99,5 +94,41 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 			bean.uniondate.push(obj);
 		}
 		$scope.newAppBean=bean;
+	}
+	
+	$scope.createNewApp=function(){
+		var bean=$scope.newAppBean;
+		//判断bean是否符合提交条件
+		if(bean!=undefined&&bean!=null&&bean.appname!=undefined&&bean.appname!=null&&bean.appname!=""){
+			var postBean={
+				appname:bean.appname,
+				servers:bean.servers,
+				uniondate:[]
+			};
+			var unions=bean.uniondate;
+			for(index in unions){
+				var union=unions[index];
+				if(union.isCompleted){
+					var tu={
+						unionid:union.unionid,
+					};
+					for(param in union.paramsArray){
+						tu[union.paramsArray[param]]=union[union.paramsArray[param]];
+					}
+					postBean.uniondate.push(tu);
+				}
+			}
+			service.createApp(postBean).success(function(data, status, headers, config) {
+				var code=data.code;
+				if(code==0){
+					//reload数据
+					$scope.loadApps();
+				}
+		  	}).error(function(data, status, headers, config) {
+		  		console.log('error createApp status:'+status+'  data:'+data);
+			});
+			return true;
+		}
+		return false;
 	}
 }]);
