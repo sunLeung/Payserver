@@ -10,6 +10,7 @@ import org.apache.log4j.PropertyConfigurator;
 import common.admin.AdminServlet;
 import common.config.AppContent;
 import common.config.Config;
+import common.config.IllegalCharContent;
 import common.config.UnionsContent;
 import common.db.C3P0Utils;
 import common.route.RouteController;
@@ -38,6 +39,8 @@ public class InitListener implements ServletContextListener{
 		initConfig(arg0);
 		//log4j初始化
 		PropertyConfigurator.configure(Config.CONFIG_DIR+File.separator+"log4j.properties");
+		//非法字符初始化
+		IllegalCharContent.init();
 		//初始化路由解析器
 		RouteController.parsePaths();
 		//初始化渠道配置

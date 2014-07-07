@@ -1,5 +1,11 @@
 package utils;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
@@ -50,4 +56,14 @@ public class RespUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void stringResp(HttpServletResponse resp,String content){
+		try {
+			resp.setHeader("content-type", DEFAULT_CONTENT_TYPE);
+			resp.getWriter().write(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

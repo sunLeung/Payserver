@@ -65,7 +65,11 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 		for(index in $scope.unionMapContent){
 			//初始化渠道列表(Array)
 			var union=$scope.unionMapContent[index];
-			var paramsArray=union.paramsArray=union.params.split(',');
+			if(union.params==null||union.params==""){
+				union.paramsArray=[];
+			}else{
+				union.paramsArray=union.params.split(',');
+			}
 		}
   	}).error(function(data, status, headers, config) {
   		console.log('error getUnions status:'+status+'  data:'+data);

@@ -23,7 +23,7 @@
     <pre>saved = {{saved | json}}</pre>
     
 <div ng-repeat="g in groups">
-	<span>{{g}}</span>
+	<span>11{{g}}</span>
 </div>
 </div>
 
@@ -34,7 +34,7 @@
 <script type="text/javascript">
     var app = angular.module("CSSClasses", []);
     app.controller("MyCtrl", function ($scope,$window) {
-    	$scope.groups=[1,2];
+    	$scope.groups=[1];
         $scope.saved = {};
         $scope.update = function(user) {
             $scope.saved = angular.copy(user);

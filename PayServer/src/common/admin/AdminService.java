@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 import utils.JsonUtils;
 import utils.RespUtils;
-import utils.ResqUtils;
+import utils.ReqUtils;
 import utils.StringUtils;
 
 import common.config.App;
@@ -28,7 +28,7 @@ public class AdminService {
 	
 	public static void createApp(HttpServletRequest res,HttpServletResponse resp){
 		try {
-			String postContent=ResqUtils.getPostString(res);
+			String postContent=ReqUtils.getPostString(res);
 			if(StringUtils.isNotBlank(postContent)){
 				int appid=AppContent.appContent.size()+1;
 				App app=(App)JsonUtils.objectFromJson(postContent, App.class);
@@ -49,7 +49,7 @@ public class AdminService {
 	
 	public static void updateApp(HttpServletRequest res,HttpServletResponse resp){
 		try {
-			String postContent=ResqUtils.getPostString(res);
+			String postContent=ReqUtils.getPostString(res);
 			if(StringUtils.isNotBlank(postContent)){
 				App app=(App)JsonUtils.objectFromJson(postContent, App.class);
 				app.initMapContent();
@@ -71,7 +71,7 @@ public class AdminService {
 	}
 	public static void deleteAppById(HttpServletRequest res,HttpServletResponse resp){
 		try {
-			String postContent=ResqUtils.getPostString(res);
+			String postContent=ReqUtils.getPostString(res);
 			if(StringUtils.isNotBlank(postContent)){
 				int appid=Integer.valueOf(postContent);
 				App oldApp=AppContent.appContent.get(appid);

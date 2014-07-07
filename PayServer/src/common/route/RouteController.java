@@ -72,7 +72,7 @@ public class RouteController extends HttpServlet{
 				Service service=Paths.get(union);
 				if(service!=null){
 					Service clone=service.clone();
-					clone.handle(appid,req,resp);
+					clone.handle(Integer.valueOf(appid),req,resp);
 				}
 			}
 		} catch (Exception e) {

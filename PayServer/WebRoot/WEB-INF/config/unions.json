@@ -1,4 +1,5 @@
 [
-	{"unionid":"150","name":"91助手","version":"1.0","uri":"/91/appid","params":"key,secret"},
-	{"unionid":"151","name":"pp","version":"1.0","uri":"/ppasset/appid","params":"appid,url"}
+	{"unionid":"1","name":"百度91_android","version":"1.0","uri":"/91_android/appid","params":"AppId,AppKey"},
+	{"unionid":"2","name":"百度91_ios","version":"1.0","uri":"/91_ios/appid","params":"AppId,AppKey"},
+	{"unionid":"151","name":"pp","version":"1.0","uri":"/ppasset/appid","params":""}
 ]

@@ -15,8 +15,8 @@ public abstract class Service implements Cloneable {
 	/**
 	 * 运行协议实现方法
 	 */
-	protected abstract void messageReceived(String appid,HttpServletRequest req,HttpServletResponse resp);
-	public void handle(String appid,HttpServletRequest req,HttpServletResponse resp){
+	protected abstract void messageReceived(int appid,HttpServletRequest req,HttpServletResponse resp);
+	public void handle(int appid,HttpServletRequest req,HttpServletResponse resp){
 		messageReceived(appid,req,resp);
 	}
 

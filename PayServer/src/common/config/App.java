@@ -16,7 +16,7 @@ public class App {
 	private Map<String,String>[] uniondata;
 	private Map<String,String>[] servers;
 	private Map<String,Map<String,String>> unionContent=new ConcurrentHashMap<String,Map<String,String>>();
-	private Map<String,Map<String,String>> serverContent=new ConcurrentHashMap<String,Map<String,String>>();;
+	private Map<String,Map<String,String>> serverContent=new ConcurrentHashMap<String,Map<String,String>>();
 	public int getAppid() {
 		return appid;
 	}
@@ -61,5 +61,32 @@ public class App {
 			if(StringUtils.isNotBlank(unionid))
 				unionContent.put(unionid, map);
 		}
+	}
+	
+	/**
+	 * 获取渠道参数
+	 * @param unionid
+	 * @param key
+	 * @return
+	 */
+	public String getUnionParam(String unionid,String key){		
+		Map<String,String> map=unionContent.get(unionid);
+		if(map!=null){
+			return map.get(key);
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取道具服的地址
+	 * @param serverid
+	 * @return
+	 */
+	public String getServerUrl(String serverid){
+		Map<String,String> map=serverContent.get(serverid);
+		if(map!=null){
+			return map.get("url");
+		}
+		return null;
 	}
 }

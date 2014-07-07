@@ -27,8 +27,12 @@ public class UnionsContent {
 				throw new IllegalArgumentException("Find the same unionid "+u.getUnionid()+".");
 			}
 			if(uriContent.containsKey(u.getUri())){
-				log.error("Find the same uri "+u.getUri()+".");
-				throw new IllegalArgumentException("Find the same uri "+u.getUri()+".");
+				log.error("Find the same uri "+u.getUri()+" in union:"+u.getUnionid()+".");
+				throw new IllegalArgumentException("Find the same uri "+u.getUri()+" in union:"+u.getUnionid()+".");
+			}
+			if(IllegalCharContent.hasIllegalCharLike(u.getParams())){
+				log.error("Find illegal char params "+u.getParams()+" in union:"+u.getUnionid()+".");
+				throw new IllegalArgumentException("Find illegal char params "+u.getParams()+" in union:"+u.getUnionid()+".");
 			}
 			unionsContent.put(u.getUnionid(), u);
 			uriContent.put(u.getUri(), u);
