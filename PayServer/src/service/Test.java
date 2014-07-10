@@ -1,8 +1,11 @@
 package service;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import utils.TimerManagerUtils;
 import bean.PayBean;
 import common.anno.Path;
 import dao.PayDao;
@@ -34,6 +37,17 @@ public class Test extends Service {
 		PayBean paybean = PayDao.getPayBeanByCporderid("2341300488800000003");
 		System.out.println(paybean);
 		System.out.println(paybean.getMoney());
+	}
+	
+	public static void main(String[] args) {
+		TimerManagerUtils.schedule(new Runnable() {
+			
+			@Override
+			public void run() {
+				System.out.println(System.currentTimeMillis());
+				
+			}
+		}, 10, TimeUnit.SECONDS);
 	}
 
 }

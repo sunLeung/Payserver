@@ -26,7 +26,7 @@ public class IllegalCharContent {
 			String temp="";
 			while((temp=br.readLine())!=null){
 				temp=temp.trim();
-				if(!temp.startsWith("//")){
+				if(!temp.startsWith("#")){
 					illegalCharContent.add(temp);
 				}
 			}

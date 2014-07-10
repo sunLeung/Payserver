@@ -1,0 +1,8 @@
+#不配默认在项目logs文件夹
+#LOG_PATH=d:/logs
+#默认输出格式
+#PATTERN=[%level %time %class %method %line] %msg
+#输出选项
+#LEVELS=INFO,DEBUG,ERROR
+#输出渠道
+#APPENDERS=APPENDER_CONTROLLER,APPENDER_FILE

@@ -1,8 +1,3 @@
-/**
- * 2010-8-18
- * XiYouGameServer
- * @author eric.chan
- **/
 package utils;
 
 import java.util.concurrent.Executors;
@@ -10,26 +5,18 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-/**
- * 
- * @Description 定时器工具类
- * @author liangyx
- * @date 2013-7-1
- * @version V1.0
- */
 public class TimerManagerUtils {
-	// 单线程定时器
-	private static final ScheduledExecutorService single_t_scheduler = Executors.newScheduledThreadPool(1);
-	// 多线程定时器
-	private static final ScheduledExecutorService many_t_scheduler = Executors.newScheduledThreadPool(4);
+	/**单线程定时器*/
+	public static final ScheduledExecutorService single_t_scheduler = Executors.newScheduledThreadPool(1);
+	/** 多线程定时器 */
+	public static final ScheduledExecutorService many_t_scheduler = Executors.newScheduledThreadPool(4);
 
-	// 使用定时器线程模式
+	/**使用定时器线程模式*/
 	public static enum TYPE {
 		single, // 单线程运行模式
 		many, // 多线程运行模式
 		one_single, //定时器任务只执行一次,单线程运行模式
-		one_many
-		//定时器任务只执行一次,多线程运行模式
+		one_many //定时器任务只执行一次,多线程运行模式
 	};
 
 	/**
