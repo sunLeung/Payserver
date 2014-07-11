@@ -21,20 +21,20 @@ public class Logger {
 	}
 
 	public void info(String msg) {
-		if(ArrayUtils.contains(LogConfig.LEVELS, LogConfig.INFO)){
-			log(msg,LogConfig.INFO);
+		if(ArrayUtils.contains(LoggerConfig.getLEVELS(), LoggerConfig.INFO)){
+			log(msg,LoggerConfig.INFO);
 		}
 	}
 
 	public void debug(String msg) {
-		if(ArrayUtils.contains(LogConfig.LEVELS, LogConfig.DEBUG)){
-			log(msg,LogConfig.DEBUG);
+		if(ArrayUtils.contains(LoggerConfig.getLEVELS(), LoggerConfig.DEBUG)){
+			log(msg,LoggerConfig.DEBUG);
 		}
 	}
 
 	public void error(String msg) {
-		if(ArrayUtils.contains(LogConfig.LEVELS, LogConfig.ERROR)){
-			log(msg,LogConfig.ERROR);
+		if(ArrayUtils.contains(LoggerConfig.getLEVELS(), LoggerConfig.ERROR)){
+			log(msg,LoggerConfig.ERROR);
 		}
 	}
 
@@ -54,16 +54,16 @@ public class Logger {
 	}
 	
 	public void output(String content, int level,LocalDateTime logDateTime){
-		if(ArrayUtils.contains(LogConfig.APPENDERS, LogConfig.APPENDER_CONTROLLER)){
-			if(level==LogConfig.INFO){
+		if(ArrayUtils.contains(LoggerConfig.getAPPENDERS(), LoggerConfig.APPENDER_CONTROLLER)){
+			if(level==LoggerConfig.INFO){
 				System.out.println(content);
-			}else if(level==LogConfig.DEBUG){
+			}else if(level==LoggerConfig.DEBUG){
 				System.out.println(content);
-			}else if(level==LogConfig.ERROR){
+			}else if(level==LoggerConfig.ERROR){
 				System.err.println(content);
 			}
 		}
-		if(ArrayUtils.contains(LogConfig.APPENDERS, LogConfig.APPENDER_FILE)){
+		if(ArrayUtils.contains(LoggerConfig.getAPPENDERS(), LoggerConfig.APPENDER_FILE)){
 			Log log=new Log(content,logDateTime);
 			clq.offer(log);
 		}
@@ -80,7 +80,7 @@ public class Logger {
 				if (tempDate == null
 						|| !log.getLogDateTime().toLocalDate()
 								.isEqual(tempDate)) {
-					f = new File(LogConfig.LOG_PATH + File.separator
+					f = new File(LoggerConfig.getLOG_PATH() + File.separator
 							+ log.getLogDateTime().toLocalDate()
 							+ File.separator + loggerName + ".log");
 					if (!f.exists())
@@ -88,7 +88,7 @@ public class Logger {
 					bw = new BufferedWriter(new FileWriter(f, true));
 					tempDate = log.getLogDateTime().toLocalDate();
 				}
-				bw.write(log.getOutputString());
+				bw.write(log.getOutputString()+"\r\n");
 				log.clear();
 				log = null;
 				t++;
@@ -96,7 +96,8 @@ public class Logger {
 					bw.flush();
 				}
 			}
-			bw.flush();
+			if(bw!=null)
+				bw.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

@@ -5,14 +5,13 @@ import java.io.File;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.log4j.PropertyConfigurator;
-
 import common.admin.AdminServlet;
 import common.config.AppContent;
 import common.config.Config;
 import common.config.IllegalCharContent;
 import common.config.UnionsContent;
 import common.db.C3P0Utils;
+import common.logger.LoggerManger;
 import common.route.RouteController;
 
 /**
@@ -28,17 +27,20 @@ public class InitListener implements ServletContextListener{
 	public void contextDestroyed(ServletContextEvent arg0) {
 		//清理c3p0
 		C3P0Utils.destroy();
-		//回写应用数据
-//		AppContent.flush();
+		//日志回写
+		LoggerManger.stopFileWriter();
+		//定时器销毁
+		WatchListener.stopWatch();
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		// TODO Auto-generated method stub
 		//初始化配置
 		initConfig(arg0);
-		//log4j初始化
-		PropertyConfigurator.configure(Config.CONFIG_DIR+File.separator+"log4j.properties");
+		//logger组件初始化
+		LoggerManger.initLoggerConfig(Config.CONFIG_DIR+File.separator+"logger.xx");
+		//启动定时器
+		WatchListener.startWatch();
 		//非法字符初始化
 		IllegalCharContent.init();
 		//初始化路由解析器

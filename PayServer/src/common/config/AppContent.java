@@ -1,19 +1,18 @@
 package common.config;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import utils.FileUtils;
 import utils.JsonUtils;
 import utils.StringUtils;
 
+import common.logger.Logger;
+import common.logger.LoggerManger;
+
 public class AppContent {
-	private static Log log=LogFactory.getLog(AppContent.class);
+	private static Logger log=LoggerManger.getLogger();
 	
 	public static Map<Integer,App> appContent=new ConcurrentHashMap<Integer,App>();
 	

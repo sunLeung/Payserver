@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
+import common.logger.Logger;
 
 public class ReqUtils {
 	private static String defaultCharset="utf-8";
@@ -41,10 +41,10 @@ public class ReqUtils {
 		return sb.toString();
 	}
 	
-	public static void requestGameServer(Log log,String url,int loginid,long uuid,float money,String unionid,int statue,long orderid){
+	public static void requestGameServer(Logger log,String url,int loginid,long uuid,float money,String unionid,int statue,long orderid){
 		requestGameServer(log, url, Def.RequestLoop, loginid, uuid, money, unionid, statue, orderid);
 	}
-	public static void requestGameServer(Log log,String url,int loop,int loginid,long uuid,float money,String unionid,int statue,long orderid){
+	public static void requestGameServer(Logger log,String url,int loop,int loginid,long uuid,float money,String unionid,int statue,long orderid){
 		try {
 			Map<String,String> params=new HashMap<String,String>();
 			params.put("loginid", loginid+"");

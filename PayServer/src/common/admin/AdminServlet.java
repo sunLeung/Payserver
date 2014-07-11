@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import common.logger.Logger;
+import common.logger.LoggerManger;
 
 public class AdminServlet extends HttpServlet{
-	private static Log log=LogFactory.getLog(AdminServlet.class);
+	private static Logger log=LoggerManger.getLogger();
 	public static Map<String,Method> methods=new HashMap<String,Method>();
 	
 	public static void initMethods(){

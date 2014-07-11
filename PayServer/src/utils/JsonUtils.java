@@ -2,10 +2,11 @@ package utils;
 
 import java.io.StringWriter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
+
+import common.logger.Logger;
+import common.logger.LoggerManger;
 
 /**
  * 
@@ -15,7 +16,7 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @version V1.0
  */
 public class JsonUtils {
-	private static final Log log = LogFactory.getLog(JsonUtils.class);
+	private static Logger log=LoggerManger.getLogger();
 	
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static final byte[] EMPTY = new byte[0];
@@ -27,7 +28,7 @@ public class JsonUtils {
         } catch (RuntimeException e) {
             throw e;
         } catch (Exception e) {  
-            log.error("Unable to serialize to json: " + object, e);
+            log.error("Unable to serialize to json: " + object);
             return null;
         }
         return writer.toString();  

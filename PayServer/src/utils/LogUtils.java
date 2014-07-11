@@ -4,7 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
+import common.logger.Logger;
 
 public class LogUtils {
 	
@@ -13,7 +13,7 @@ public class LogUtils {
 	 * @param log
 	 * @param req
 	 */
-	public static void logReqParams(Log log,HttpServletRequest req){
+	public static void logReqParams(Logger log,HttpServletRequest req){
 		StringBuilder sbReq=new StringBuilder();
 		Map<String,String[]> keys=req.getParameterMap();
 		for(java.util.Map.Entry<String,String[]> entry:keys.entrySet()){

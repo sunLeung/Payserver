@@ -4,13 +4,13 @@ import static common.db.DbUtils.dbUtils;
 
 import java.sql.SQLException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import bean.PayBean;
 
+import common.logger.Logger;
+import common.logger.LoggerManger;
+
 public class PayDao {
-	private static Log log=LogFactory.getLog(PayDao.class);
+	private static Logger log=LoggerManger.getLogger();
 	
 	public static int save(PayBean bean){
 		try {

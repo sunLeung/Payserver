@@ -7,11 +7,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import common.logger.Logger;
+import common.logger.LoggerManger;
 
 public class IllegalCharContent {
-	private static Log log=LogFactory.getLog(IllegalCharContent.class);
+	private static Logger log=LoggerManger.getLogger();
 	
 	public static List<String> illegalCharContent=new ArrayList<String>();
 	

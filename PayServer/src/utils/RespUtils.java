@@ -1,18 +1,12 @@
 package utils;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import common.logger.Logger;
+import common.logger.LoggerManger;
 
 public class RespUtils {
-	private static Log log=LogFactory.getLog(RespUtils.class);
+	private static Logger log=LoggerManger.getLogger();
 	private static final String DEFAULT_CONTENT_TYPE="text/html;charset=UTF-8";
 	/**返回码*/
 	public static final class CODE{

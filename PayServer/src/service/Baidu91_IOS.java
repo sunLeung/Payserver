@@ -3,9 +3,6 @@ package service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import utils.Def;
 import utils.LogUtils;
 import utils.MD5;
@@ -14,14 +11,18 @@ import utils.RespUtils;
 import utils.TransferUtils;
 import bean.PayBean;
 import bean.UserBean;
+
 import common.anno.Path;
 import common.config.App;
 import common.config.AppContent;
+import common.logger.Logger;
+import common.logger.LoggerManger;
+
 import dao.PayDao;
 
 @Path("91_ios")
 public class Baidu91_IOS extends Service{
-	private static Log log=LogFactory.getLog(Baidu91_IOS.class);
+	private static Logger log=LoggerManger.getLogger(Baidu91_IOS.class);
 	
 	private static String unionid="2";
 	private static String respString="{\"ErrorCode\":\"1\",\"ErrorDesc\":\"接收成功\"}";

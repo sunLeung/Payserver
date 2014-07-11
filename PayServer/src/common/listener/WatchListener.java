@@ -1,5 +1,6 @@
 package common.listener;
 
+import java.io.File;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +19,8 @@ public class WatchListener{
 		futrue=TimerManagerUtils.schedule(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println(System.currentTimeMillis());
+				//监控日志配置文件
+				LoggerManger.watchLogConfig(Config.CONFIG_DIR+File.separator+"logger.xx");
 			}
 		}, Config.WATCH_SECOND, TimeUnit.SECONDS);
 		log.info("Start watching thread completed.");
@@ -33,5 +35,4 @@ public class WatchListener{
 		}
 		log.info("Stop watching thread completed.");
 	}
-	
 }

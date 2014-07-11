@@ -12,6 +12,8 @@ public class Config {
 	public static String CONFIG_DIR="config";
 	/**守护线程运行间隔*/
 	public static int WATCH_SECOND=10;
+	/**日志配置文件*/
+	public static String LOGGER_CONFIG="logger.xx";
 //	public static String CONFIG_DIR="D:\\Git\\Payserver\\PayServer\\WebRoot\\WEB-INF\\config";
 	
 }

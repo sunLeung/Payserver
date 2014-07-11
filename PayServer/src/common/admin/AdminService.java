@@ -3,20 +3,19 @@ package common.admin;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import utils.JsonUtils;
-import utils.RespUtils;
 import utils.ReqUtils;
+import utils.RespUtils;
 import utils.StringUtils;
 
 import common.config.App;
 import common.config.AppContent;
 import common.config.UnionsContent;
+import common.logger.Logger;
+import common.logger.LoggerManger;
 
 public class AdminService {
-	private static Log log=LogFactory.getLog(AdminService.class);
+	private static Logger log=LoggerManger.getLogger();
 	
 	public static void getAppsInfo(HttpServletRequest res,HttpServletResponse resp){
 		RespUtils.jsonResp(resp, AppContent.appContent,"application/json;charset=UTF-8");

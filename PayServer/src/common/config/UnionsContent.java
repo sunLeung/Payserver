@@ -4,14 +4,14 @@ import java.io.File;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import utils.FileUtils;
 import utils.JsonUtils;
 
+import common.logger.Logger;
+import common.logger.LoggerManger;
+
 public class UnionsContent {
-	private static Log log=LogFactory.getLog(UnionsContent.class);
+	private static Logger log=LoggerManger.getLogger();
 	
 	public static Map<String,Union> unionsContent=new ConcurrentHashMap<String,Union>();
 	public static Map<String,Union> uriContent=new ConcurrentHashMap<String,Union>();

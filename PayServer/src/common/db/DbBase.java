@@ -15,12 +15,12 @@ import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import bean.Pojo;
 
 import com.mysql.jdbc.Statement;
+import common.logger.Logger;
+import common.logger.LoggerManger;
 /**
  * 
  * @Description 数据库操作工具类
@@ -30,7 +30,7 @@ import com.mysql.jdbc.Statement;
  */
 @SuppressWarnings({"unchecked","rawtypes"})
 public abstract class DbBase {
-	private final static Log log = LogFactory.getLog(DbBase.class);
+	private static Logger log=LoggerManger.getLogger();
 
 	protected QueryRunner runner = null;
 	private final static ColumnListHandler columnListHandler = new ColumnListHandler();
@@ -497,7 +497,7 @@ public abstract class DbBase {
 			}
 			return tn;
 		} catch (Exception e) {
-			log.error("Get " + c.getSimpleName() + " name exception.", e);
+			log.error("Get " + c.getSimpleName() + " name exception.");
 			return null;
 		}
 	}
@@ -537,7 +537,7 @@ public abstract class DbBase {
 			return insertSql;
 		} catch (Exception e) {
 			log.error("Get " + obj.getClass().getSimpleName()
-					+ " insertSql exception.", e);
+					+ " insertSql exception.");
 			return null;
 		}
 	}
