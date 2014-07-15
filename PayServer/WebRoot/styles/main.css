@@ -30,3 +30,11 @@
 .server-remove a:hover{
 	color: red;
 }
+
+.default_foucs{
+	color: #48c9b0 !important ;
+}
+
+.error_foucs{
+	color: #e74c3c !important ;
+}

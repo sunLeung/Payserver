@@ -7,16 +7,20 @@
      <script src="scripts/controllers/maincontroller.js" type="text/javascript"></script>
 </head>
 <body>
-     <div id='content' ng-app='MyTutorialApp' ng-controller='MainController'>
-		<input type='text' ng-model='inputValue' />
-		{{inputValue}}
-		<select ng-model='selectedPerson' ng-options='obj.name for obj in people'></select>
-			<select ng-model='selectedGenre'>
-				<option ng-repeat='label in people[selectedPerson.id].music'>{{label}}</option>
-		</select>
-	<div ng-controller='con'>
-		{{fuck}}
-	</div>
-	</div>
+   <% 
+      String ip  =  request.getHeader( "x-forwarded-for" );  
+      out.print(ip);
+       if (ip  ==   null   ||  ip.length()  ==   0   ||   "unknown" .equalsIgnoreCase(ip))  {  
+          ip  =  request.getHeader( "Proxy-Client-IP" );  
+           out.print(ip);
+      }   
+       if (ip  ==   null   ||  ip.length()  ==   0   ||   "unknown" .equalsIgnoreCase(ip))  {  
+          ip  =  request.getHeader( "WL-Proxy-Client-IP" );  
+           out.print(ip);
+      }   
+       if (ip  ==   null   ||  ip.length()  ==   0   ||   "unknown" .equalsIgnoreCase(ip))  {  
+         ip  =  request.getRemoteAddr();  
+     }   
+      out.print(ip);   %>
 </body>
 </html>

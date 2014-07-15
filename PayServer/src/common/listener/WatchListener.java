@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import utils.TimerManagerUtils;
 
 import common.config.Config;
+import common.config.PlatformUserContent;
 import common.logger.Logger;
 import common.logger.LoggerManger;
 
@@ -21,6 +22,10 @@ public class WatchListener{
 			public void run() {
 				//监控日志配置文件
 				LoggerManger.watchLogConfig(Config.CONFIG_DIR+File.separator+"logger.xx");
+				//监控平台用户配置文件
+				PlatformUserContent.watchPlatformUserContent();
+				//监控平台权限文件
+				PlatformUserContent.watchAuthContent();
 			}
 		}, Config.WATCH_SECOND, TimeUnit.SECONDS);
 		log.info("Start watching thread completed.");

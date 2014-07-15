@@ -9,6 +9,7 @@ import common.admin.AdminServlet;
 import common.config.AppContent;
 import common.config.Config;
 import common.config.IllegalCharContent;
+import common.config.PlatformUserContent;
 import common.config.UnionsContent;
 import common.db.C3P0Utils;
 import common.logger.LoggerManger;
@@ -51,6 +52,10 @@ public class InitListener implements ServletContextListener{
 		AppContent.init();
 		//初始化Admin管理方法
 		AdminServlet.initMethods();
+		//初始化平台用户数据
+		PlatformUserContent.watchPlatformUserContent();
+		//初始化权限数据
+		PlatformUserContent.watchAuthContent();
 	}
 	
 	private void initConfig(ServletContextEvent sce){

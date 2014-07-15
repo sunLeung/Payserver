@@ -37,6 +37,10 @@ public class AdminServlet extends HttpServlet{
 			req.setCharacterEncoding("utf-8");
 			resp.setHeader("content-type", "text/html;charset=UTF-8");
 			String uri = req.getRequestURI();
+			
+			System.out.println(uri);
+			
+			
 			if(uri.contains("/admin/")){
 				String[] date=uri.split("/");
 				String mkey=date[2];

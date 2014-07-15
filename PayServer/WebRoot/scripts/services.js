@@ -1,6 +1,21 @@
 app.factory('service', ['$http',function($http) {
     var baseUrl = '/admin';
     return {
+    	/**登陆验证*/
+        login: function(user) {
+            var url = baseUrl + '/' + 'login';
+            return $http.post(url, user);
+        },
+    	/**登出*/
+        logout: function() {
+            var url = baseUrl + '/' + 'logout';
+            return $http.get(url);
+        },
+    	/**登出*/
+        loadUser: function(user) {
+            var url = baseUrl + '/' + 'loadUser';
+            return $http.get(url);
+        },
     	/**通过ID获取应用数据*/
         getAppInfoById: function(appid) {
             return $http.get(baseUrl + '/' + 'getAppInfoById'+ '/' +appid);

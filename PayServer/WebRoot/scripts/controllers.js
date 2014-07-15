@@ -1,4 +1,4 @@
-app.controller('controller', ['$scope','service', function($scope,service) {
+app.controller('controller', ['$scope','service','$window', function($scope,service,$window) {
 	//参数定义
 	/**应用列表*/
 	$scope.appsContent={};
@@ -10,10 +10,33 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 	$scope.errorContent = {
 		"gameListEmptyTip":"请配置相应道具发放服务器",
 		"unionListEmptyTip":"请配置渠道",
-		"appnameEmptyTip":""
+		"appnameEmptyTip":"",
+	};
+	/**登陆用户*/
+	$scope.user={
+		isLogin:false,
+		username:"",
+		auth:null
 	};
 	
-	//方法
+	$scope.loadUser=function(){
+		service.loadUser().success(function(data, status, headers, config) {
+			var isLogin=data.isLogin;
+			if(isLogin){
+				$scope.user.isLogin=true;
+				$scope.user.username=data.username;
+				var auth=data.auth.trim();
+				$scope.user.auth=auth.split(',');
+			}else{
+				$window.location.href='/login.html';
+			}
+		}).error(function(data, status, headers, config) {
+	  		console.log('error loadUser status:'+status+'  data:'+data);
+		});
+	}
+	/**初始化用户数据*/
+	$scope.loadUser();
+	
 	/**初始化应用列表方法*/
 	$scope.loadApps=function(){
 		service.getApps().success(function(data, status, headers, config) {
@@ -214,4 +237,68 @@ app.controller('controller', ['$scope','service', function($scope,service) {
 		});
 		return true;
 	};
+	
+	$scope.logout=function(){
+		service.logout().success(function(data, status, headers, config) {
+			console.log('[info] logout response:'+JSON.stringify(data));
+			$window.location.href='/login.html';
+	  	}).error(function(data, status, headers, config) {
+	  		console.log('error logout status:'+status+'  data:'+data);
+		});
+	};
+}]);
+
+
+app.controller('loginController', ['$scope','service','$window', function($scope,service,$window) {
+	$scope.login=function(){
+		var uname=$scope.username;
+		var pwd=$scope.pwd;
+		$scope.loginUser={
+			isLogin:false,
+		};
+		
+		if($scope.loginForm.username.$invalid){
+			$("input[name=username]").addClass('default-error').next().addClass('error_foucs');
+		}else{
+			$("input[name=username]").removeClass('default-error').next().removeClass('error_foucs');
+		}
+		if($scope.loginForm.pwd.$invalid){
+			$("input[name=pwd]").addClass('default-error').next().addClass('error_foucs');
+		}else{
+			$("input[name=pwd]").removeClass('default-error').next().removeClass('error_foucs');
+		}
+		
+		if($scope.loginForm.$invalid){
+			return;
+		}
+		var user={
+			username:uname.trim(),
+			password:pwd,
+		}
+		service.login(user).success(function(data, status, headers, config) {
+			console.log('[info] login response:'+JSON.stringify(data));
+			var code=data.code;
+			if(code==0){
+				$scope.loginUser.isLogin=true;
+				$window.location.href='/admin.html';
+			}else{
+				$("#loginErrorTip").show(100);
+			}
+	  	}).error(function(data, status, headers, config) {
+	  		console.log('error login status:'+status+'  data:'+data);
+		});
+	}
+	
+	$scope.loginBlur=function(){
+		if($scope.loginForm.username.$invalid){
+			$("input[name=username]").addClass('default-error').next().addClass('error_foucs');
+		}else{
+			$("input[name=username]").removeClass('default-error').next().removeClass('error_foucs');
+		}
+		if($scope.loginForm.pwd.$invalid){
+			$("input[name=pwd]").addClass('default-error').next().addClass('error_foucs');
+		}else{
+			$("input[name=pwd]").removeClass('default-error').next().removeClass('error_foucs');
+		}
+	}
 }]);
