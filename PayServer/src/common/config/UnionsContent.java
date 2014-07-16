@@ -19,7 +19,7 @@ public class UnionsContent {
 	public static void init(){
 		log.info("Star init unions json data.");
 		String filePath=Config.CONFIG_DIR + File.separator + "unions.json";
-		String jsonSrc=FileUtils.readFileToString(filePath);
+		String jsonSrc=FileUtils.readFileToJSONString(filePath);
 		Union[] list=(Union[])JsonUtils.objectFromJson(jsonSrc, Union[].class);
 		for(Union u:list){
 			if(unionsContent.containsKey(u.getUnionid())){

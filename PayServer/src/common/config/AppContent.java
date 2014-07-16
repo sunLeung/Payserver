@@ -3,11 +3,11 @@ package common.config;
 import java.io.File;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import utils.FileUtils;
 import utils.JsonUtils;
 import utils.StringUtils;
-
 import common.logger.Logger;
 import common.logger.LoggerManger;
 
@@ -15,11 +15,13 @@ public class AppContent {
 	private static Logger log=LoggerManger.getLogger();
 	
 	public static Map<Integer,App> appContent=new ConcurrentHashMap<Integer,App>();
+	/**统计应用ID*/
+	public static AtomicInteger topAppID=new AtomicInteger(0);
 	
 	public static void init(){
 		log.info("Star init apps json data.");
 		String filePath=Config.CONFIG_DIR + File.separator + "apps.json";
-		String jsonSrc=FileUtils.readFileToString(filePath);
+		String jsonSrc=FileUtils.readFileToJSONString(filePath);
 		if(StringUtils.isNotBlank(jsonSrc)){
 			App[] list=(App[])JsonUtils.objectFromJson(jsonSrc, App[].class);
 			for(App a:list){
@@ -29,6 +31,9 @@ public class AppContent {
 				}
 				appContent.put(a.getAppid(), a);
 				a.initMapContent();
+				if(a.getAppid()>topAppID.get()){
+					topAppID.set(a.getAppid());
+				}
 			}
 		}
 		log.info("Init apps json data completed.");

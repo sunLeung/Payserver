@@ -11,7 +11,7 @@ app.factory('service', ['$http',function($http) {
             var url = baseUrl + '/' + 'logout';
             return $http.get(url);
         },
-    	/**登出*/
+    	/**获取用户资料*/
         loadUser: function(user) {
             var url = baseUrl + '/' + 'loadUser';
             return $http.get(url);

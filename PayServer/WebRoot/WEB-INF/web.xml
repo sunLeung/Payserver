@@ -30,5 +30,18 @@
 		<servlet-name>adminroute</servlet-name>
 		<url-pattern>/admin/*</url-pattern>
 	</servlet-mapping>
-	
+	<!-- 管理后台登陆检查 -->
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>common.admin.AdminFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/admin.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
 </web-app>

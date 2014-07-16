@@ -12,6 +12,11 @@ app.controller('controller', ['$scope','service','$window', function($scope,serv
 		"unionListEmptyTip":"请配置渠道",
 		"appnameEmptyTip":"",
 	};
+	$scope.constant={
+		AUTH_CREATE_APP:1,
+		AUTH_UPDATE_APP:2,
+		AUTH_DELETE_APP:3
+	}
 	/**登陆用户*/
 	$scope.user={
 		isLogin:false,
@@ -192,6 +197,7 @@ app.controller('controller', ['$scope','service','$window', function($scope,serv
 					var code=data.code;
 					if(code==0){
 						//reload数据
+						$scope.loadUser();
 						$scope.loadApps();
 					}
 			  	}).error(function(data, status, headers, config) {
@@ -238,6 +244,10 @@ app.controller('controller', ['$scope','service','$window', function($scope,serv
 		return true;
 	};
 	
+	/**
+	 * 登出操作
+	 * @returns {} 
+	 */
 	$scope.logout=function(){
 		service.logout().success(function(data, status, headers, config) {
 			console.log('[info] logout response:'+JSON.stringify(data));
@@ -246,6 +256,36 @@ app.controller('controller', ['$scope','service','$window', function($scope,serv
 	  		console.log('error logout status:'+status+'  data:'+data);
 		});
 	};
+	
+	/**
+	 * 检查权限
+	 * @param {} authCode
+	 * @returns {} 
+	 */
+	$scope.checkAuth=function(authCode){
+    	var user=$scope.user;
+    	if(!angular.isUndefined(user)&&!angular.isUndefined(user.isLogin)&&user.isLogin&&!angular.isUndefined(user.auth)&&user.auth!=null){
+    		for(var i=0;i<user.auth.length;i++){
+				if(user.auth[i] == authCode)
+					return true;
+			}
+			return false;  
+    	}
+    	return false;
+    };
+    
+    /**
+     * 检查是否可以操作更新权限
+     * @returns {} 
+     */
+    $scope.canUpdate=function(){
+    	if($scope.appBean.action=="update"){
+    		if(!$scope.checkAuth($scope.constant.AUTH_UPDATE_APP)){
+    			return false;
+    		}
+    	}
+    	return true;
+    }
 }]);
 
 
@@ -290,12 +330,12 @@ app.controller('loginController', ['$scope','service','$window', function($scope
 	}
 	
 	$scope.loginBlur=function(){
-		if($scope.loginForm.username.$invalid){
+		if($scope.loginForm.pwd.$invalid && !$scope.loginForm.pwd.$pristine){
 			$("input[name=username]").addClass('default-error').next().addClass('error_foucs');
 		}else{
 			$("input[name=username]").removeClass('default-error').next().removeClass('error_foucs');
 		}
-		if($scope.loginForm.pwd.$invalid){
+		if($scope.loginForm.pwd.$invalid && !$scope.loginForm.pwd.$pristine){
 			$("input[name=pwd]").addClass('default-error').next().addClass('error_foucs');
 		}else{
 			$("input[name=pwd]").removeClass('default-error').next().removeClass('error_foucs');

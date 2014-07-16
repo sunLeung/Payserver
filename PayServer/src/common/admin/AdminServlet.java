@@ -7,7 +7,15 @@ import java.util.Map;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+
+
+import org.apache.commons.lang3.ArrayUtils;
+
+import common.config.AuthMap;
+import common.config.PlatformUser;
+import common.config.PlatformUserContent;
 import common.logger.Logger;
 import common.logger.LoggerManger;
 
@@ -37,8 +45,23 @@ public class AdminServlet extends HttpServlet{
 			req.setCharacterEncoding("utf-8");
 			resp.setHeader("content-type", "text/html;charset=UTF-8");
 			String uri = req.getRequestURI();
-			
 			System.out.println(uri);
+			
+			//权限过滤
+			AuthMap auth=PlatformUserContent.authContent.get(uri);
+			if(auth!=null){
+				HttpSession session = req.getSession();
+				PlatformUser user = (PlatformUser) session.getAttribute("loginUser");
+				if(user==null){
+					resp.sendRedirect("/login.html");
+					return;
+				}else{
+					if(!ArrayUtils.contains(user.authArray(), auth.getAuthCode())){
+						resp.setStatus(401);
+						return;
+					}
+				}
+			}
 			
 			
 			if(uri.contains("/admin/")){

@@ -10,6 +10,17 @@ import java.io.OutputStreamWriter;
 public class FileUtils {
 	private static String defaultCharset="utf-8";
 	
+	/**
+	 * 过滤文本注释
+	 * @param path
+	 * @return
+	 */
+	public static String readFileToJSONString(String path){
+		String src=readFileToString(path,defaultCharset);
+		src=src.replaceAll("/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/", "");
+		return src;
+	}
+	
 	public static String readFileToString(String path){
 		return readFileToString(path,defaultCharset);
 	}

@@ -2,18 +2,18 @@ package common.config;
 
 public class AuthMap {
 	private String resource;
-	private int authkey;
+	private int authCode;
 	public String getResource() {
 		return resource;
 	}
 	public void setResource(String resource) {
 		this.resource = resource;
 	}
-	public int getAuthkey() {
-		return authkey;
+	public int getAuthCode() {
+		return authCode;
 	}
-	public void setAuthkey(int authkey) {
-		this.authkey = authkey;
+	public void setAuthCode(int authCode) {
+		this.authCode = authCode;
 	}
-	
+
 }
