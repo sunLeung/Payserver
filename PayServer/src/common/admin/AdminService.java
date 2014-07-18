@@ -17,7 +17,7 @@ import common.config.App;
 import common.config.AppContent;
 import common.config.PlatformUser;
 import common.config.PlatformUserContent;
-import common.config.UnionsContent;
+import common.config.UnionContent;
 import common.json.JSONObject;
 import common.logger.Logger;
 import common.logger.LoggerManger;
@@ -43,7 +43,7 @@ public class AdminService {
 	}
 	
 	public static void getUnionsInfo(HttpServletRequest res,HttpServletResponse resp){
-		RespUtils.jsonResp(resp, UnionsContent.unionsContent,"application/json;charset=UTF-8");
+		RespUtils.jsonResp(resp, UnionContent.unionContent,"application/json;charset=UTF-8");
 	}
 	
 	public static void createApp(HttpServletRequest res,HttpServletResponse resp){

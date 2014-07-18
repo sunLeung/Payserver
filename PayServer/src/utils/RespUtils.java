@@ -2,6 +2,7 @@ package utils;
 
 import javax.servlet.http.HttpServletResponse;
 
+import common.json.JSONObject;
 import common.logger.Logger;
 import common.logger.LoggerManger;
 
@@ -55,6 +56,20 @@ public class RespUtils {
 		try {
 			resp.setHeader("content-type", DEFAULT_CONTENT_TYPE);
 			resp.getWriter().write(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void LoginAuthResp(HttpServletResponse response,int code,String uid){
+		try {
+			response.setHeader("content-type", DEFAULT_CONTENT_TYPE);
+			JSONObject json=new JSONObject();
+			json.put("code", code);
+			JSONObject data=new JSONObject();
+			data.put("uid", uid);
+			json.put("data", data);
+			response.getWriter().write(json.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

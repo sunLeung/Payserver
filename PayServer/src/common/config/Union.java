@@ -6,6 +6,7 @@ public class Union {
 	private String version;
 	private String uri;
 	private String params;
+	private String loginService;
 	public String getUnionid() {
 		return unionid;
 	}
@@ -35,6 +36,12 @@ public class Union {
 	}
 	public void setParams(String params) {
 		this.params = params;
+	}
+	public String getLoginService() {
+		return loginService;
+	}
+	public void setLoginService(String loginService) {
+		this.loginService = loginService;
 	}
 	
 }

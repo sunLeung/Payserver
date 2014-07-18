@@ -10,10 +10,9 @@ import common.config.AppContent;
 import common.config.Config;
 import common.config.IllegalCharContent;
 import common.config.PlatformUserContent;
-import common.config.UnionsContent;
+import common.config.UnionContent;
 import common.db.C3P0Utils;
 import common.logger.LoggerManger;
-import common.route.RouteController;
 
 /**
  * 
@@ -44,10 +43,8 @@ public class InitListener implements ServletContextListener{
 		WatchListener.startWatch();
 		//非法字符初始化
 		IllegalCharContent.init();
-		//初始化路由解析器
-		RouteController.parsePaths();
 		//初始化渠道配置
-		UnionsContent.init();
+		UnionContent.watchUnionContent();
 		//初始化应用配置
 		AppContent.init();
 		//初始化Admin管理方法

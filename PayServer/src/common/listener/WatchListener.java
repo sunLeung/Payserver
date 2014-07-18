@@ -5,9 +5,9 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import utils.TimerManagerUtils;
-
 import common.config.Config;
 import common.config.PlatformUserContent;
+import common.config.UnionContent;
 import common.logger.Logger;
 import common.logger.LoggerManger;
 
@@ -26,6 +26,8 @@ public class WatchListener{
 				PlatformUserContent.watchPlatformUserContent();
 				//监控平台权限文件
 				PlatformUserContent.watchAuthContent();
+				//初始化渠道配置
+				UnionContent.watchUnionContent();
 			}
 		}, Config.WATCH_SECOND, TimeUnit.SECONDS);
 		log.info("Start watching thread completed.");

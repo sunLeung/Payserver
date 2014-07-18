@@ -15,14 +15,14 @@ import common.logger.Logger;
 public class ReqUtils {
 	private static String defaultCharset="utf-8";
 	
-	public static String getPostString(HttpServletRequest res){
-		return getPostString(res,defaultCharset);
+	public static String getPostString(HttpServletRequest req){
+		return getPostString(req,defaultCharset);
 	}
-	public static String getPostString(HttpServletRequest res,String charset){
+	public static String getPostString(HttpServletRequest req,String charset){
 		BufferedReader br=null;
 		StringBuilder sb=new StringBuilder();
 		try {
-			br=new BufferedReader(new InputStreamReader(res.getInputStream(), charset));
+			br=new BufferedReader(new InputStreamReader(req.getInputStream(), charset));
 			String temp="";
 			while((temp=br.readLine())!=null){
 				sb.append(temp);
